@@ -14,6 +14,8 @@ using System.IO.Pipes;
 
 Console.WriteLine("The answer to the question of Life, The Universe and Everything?");
 var answer = Console.ReadLine();
+//int answerAsInt2 = int.Parse(answer);
+
 if (!int.TryParse(answer, out int answerAsInt))
 {
     Console.WriteLine("It is a number...");
@@ -28,7 +30,7 @@ else
 }
 
 // Pattern matching -->
-var result = answer switch
+var result = answer switch 
 {
     string s when s.Length > 2 => "String length is greater then 2, Wrong...", // <-- 
     string s when int.TryParse(s, out int i) && i == 42 => "Correct!", // <-- probeer 'anwer te parsen als int en controleer waarde
@@ -40,7 +42,12 @@ var result = answer switch
 
 // Explicit type met object initializer syntax -->
 
-Student explicitStudent = new Student { Nr = 1, FirstName = "Twoflower", LastName = "The Tourist", DateOfBirth = new DateOnly(2000, 1, 1) };
+Student explicitStudent = new Student 
+{ 
+    Nr = 1, FirstName = "Twoflower", LastName = "The Tourist", DateOfBirth = new DateOnly(2000, 1, 1) // <-- DateOfBirth kan hier want 6initialiseren
+};
+
+//explicitStudent.DateOfBirth = new DateOnly(2000, 1, 1); // <-- kan niet, want init-only property
 
 // Implicit type -->
 var implicitStudent = new Student();
@@ -49,12 +56,23 @@ implicitStudent.FirstName = "Ponder";
 implicitStudent.LastName = "Stibbons";
 //implicitStudent.DateOfBirth = new DateOnly(2000, 1, 1); <-- kan niet, want init-only property
 
+//Student student = new Student(new Teacher(), 1, "blabla");
+
+
+
 // Collection initializer -->
 var students = new List<Student>() { 
     new Student { Nr = 1, FirstName = "Cohen", LastName = "The Barbarian", DateOfBirth = new DateOnly(2000, 1, 1), }, 
     new Student { Nr = 2, FirstName = "Cut-Me-Own-Throat", LastName = "Dibbler", },
     new Student { Nr = 3, FirstName = "Julliet", LastName = "Stollop", /*SlbTeacher = null <-- geen setter, kan alleen in constructor gezet worden */},
 };
+
+
+// Extension method -->
+foreach(var student in students)
+{
+    Console.WriteLine(student.GetFullName());
+}
 
 
 // null coalescing operator -->
@@ -66,8 +84,15 @@ students.ForEach(s => Console.WriteLine($"{s.Nr} {s.FirstName} {s.LastName}"));
 // zelfde met foreach -->
 foreach (var student in students)
 {
-    Console.WriteLine($"{student.Nr} {student.FirstName} {student.LastName}");
+    Console.WriteLine($"{student.Nr} {0:c} {student.FirstName} {student.LastName}");
+    Console.WriteLine("{0} {1}", student.Nr, student.FirstName);
 }
+
+for (int i =0; i < students.Count; i++)
+{
+    Console.WriteLine(students[i]);    
+}
+
 
 // LINQ -->
 
@@ -78,7 +103,8 @@ var studentsWithJ_QS =
     select student;
 
 // method syntax -->
-var studentsWithS_MS = students.Where(s => s.FirstName.Contains("S"));
+var studentsWithS_MS = students
+    .Where(s => s.FirstName.Contains("S", StringComparison.InvariantCultureIgnoreCase));
 
 
 // operaties -->
@@ -102,3 +128,8 @@ eenTweedeCollectie
 
 // File IO
 File.WriteAllLines("students.txt", students.Select(s => $"{s.Nr}\t{s.FirstName}\t{s.LastName}\r\n"));
+
+// string literals met interpolatie -->
+string dnaQuote = $@"In the beginning the Universe was created.
+This had made many people very angry 
+and has been widely regarded as a bad move.";
