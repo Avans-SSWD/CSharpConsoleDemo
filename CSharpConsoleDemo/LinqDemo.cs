@@ -23,8 +23,13 @@ public class LinqDemo
 
 
         // operaties -->
-        var eenUnion = studentsWithJ_QS.Union(studentsWithS_MS);
+        // Union -->
+        var uniqueStudents = studentsWithJ_QS.Union(studentsWithS_MS);
 
+        // intersect, items die in beide collecties zitten
+        // maar waarom geen resultaat?
+        // (IEqualityComparer om zelf te sturen hoe vergeleken moet worden)-->
+        var eenIntersect = studentsWithJ_QS.Intersect(studentsWithS_MS);
         var eenTweedeCollectie = new List<Student>()
         {
             new Student { Nr = 4, FirstName = "Mustrum", LastName = "Ridcully", },
@@ -35,6 +40,33 @@ public class LinqDemo
         // Anoniem type (hoover erover voor intellisense) -->
         var iets = new { FirstValue = "een waarde", SecondValue = "een tweede waarde", AnInteger = 42 };
         Console.WriteLine($"{iets.FirstValue}");
+
+        try
+        {
+            var bestaatNiet = eenTweedeCollectie.Single(s => s.FirstName == "Bestaat niet");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Oepsie: {ex.Message}.\r\n\r\nStacktrace: {ex.StackTrace}");
+        }
+
+        // nog een keer, maar dan met default value -->
+        var bestaatNiet2 = eenTweedeCollectie.SingleOrDefault(s => s.FirstName == "Bestaat niet");
+        if (bestaatNiet2 == null)
+        {
+            Console.WriteLine("Mustrum2 is null");
+        }
+
+        try
+        {
+            var kanNietWantWeEisenMaar1 = eenTweedeCollectie.Single(s => s != null);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Oepsie: {ex.Message}");
+        }
+
+        var kanWelWantPaktDeEerste = eenTweedeCollectie.FirstOrDefault(s => s != null);
 
         // transformaties mbv select -->
         // fluent syntax, method chaining -->

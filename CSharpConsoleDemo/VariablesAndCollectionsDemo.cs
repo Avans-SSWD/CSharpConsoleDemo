@@ -35,17 +35,22 @@ public class VariablesAndCollectionsDemo
 
         // Collection initializer -->
         var students = new List<Student>()
-{
-    new Student { Nr = 1, FirstName = "Cohen", LastName = "The Barbarian", DateOfBirth = new DateOnly(2000, 1, 1), },
-    new Student { Nr = 2, FirstName = "Cut-Me-Own-Throat", LastName = "Dibbler", },
-    new() { Nr = 3, FirstName = "Julliet", LastName = "Stollop", /*SlbTeacher = null <-- geen setter, kan alleen in constructor gezet worden */},
-};
+        {
+            new Student { Nr = 1, FirstName = "Cohen", LastName = "The Barbarian", DateOfBirth = new DateOnly(2000, 1, 1), },
+            new Student { Nr = 2, FirstName = "Cut-Me-Own-Throat", LastName = "Dibbler", },
+            new() { Nr = 3, FirstName = "Julliet", LastName = "Stollop", /*SlbTeacher = null <-- geen setter, kan alleen in constructor gezet worden */},
+        };
 
+        // Na initialisatie een item toevoegen -->
+        students.Add(new() { FirstName = "Sacharissa", LastName = "Cripslock" });
+        
+        // Meerdere toevoegen -->
+        students.AddRange([explicitStudent, implicitStudent, studentRincewind]);
 
         // itereer over collectie -->
         foreach (var student in students)
         {
-            // Extension method -->
+            // Extension method aanroep -->
             Console.WriteLine(student.GetFullName());
         }
 
