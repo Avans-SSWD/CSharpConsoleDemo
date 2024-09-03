@@ -7,9 +7,13 @@ public class LinqDemo
     {
 
         Func<int, int> squareInt = x => x * x;
+        Func<int, int, string> multiplyTwoInts = (x,y) => $"{x} * {y} is {x * y}";
 
         var squared = squareInt(5);
-        Console.WriteLine($"5 squared is {squared}");
+        var multiplied = multiplyTwoInts(5, 6);
+
+        // https://learn.microsoft.com/en-us/dotnet/standard/base-types/formatting-types
+        Console.WriteLine($"5 squared is {squared}. 5x6 is {multiplied:D}");
 
         // query syntax -->
         var studentsWithJ_QS =
