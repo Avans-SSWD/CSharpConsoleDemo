@@ -4,9 +4,10 @@
 // (conventie is deze in apart cs bestand genaamd 'globalusings.cs' te zetten) -->
 global using System;
 global using System.Linq;
+
 using CSharpConsoleDemo;
-using System.ComponentModel;
-using System.IO.Pipes;
+using Entities.Domain.Staff;
+using Entities.Domain.Students;
 
 
 // Top level statements, geen Main() nodig
@@ -43,7 +44,7 @@ var result = answer switch
 
 // Explicit type met object initializer syntax -->
 
-Student explicitStudent = new Student 
+Student explicitStudent = new Entities.Domain.Students.Student 
 { 
     Nr = 1, 
     FirstName = "Twoflower", 
@@ -106,7 +107,7 @@ for (int i =0; i < students.Count; i++)
     Console.WriteLine(students[i]);    
 }
 
-    int cnt = 0;
+int cnt = 0;
 while(cnt < students.Count)
 {
     // post-increment (ophogen NA moment van gebruik) -->

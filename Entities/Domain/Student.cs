@@ -1,29 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Entities.Domain.Interfaces;
+using Entities.Domain.Staff;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 // File-scoped namespace -->
-namespace CSharpConsoleDemo;
+namespace Entities.Domain.Students;
 public class Student : IStudent
 {
     private bool _isEnlisted;
 
     public Student()
     {
-        
+
         SlbTeacher = null;
     }
-    
+
     // annotatie (attribuut) geeft aan dat 'required' members hier gezet worden -->
     [SetsRequiredMembers]
     public Student(Teacher? slbTeacher = null, int nr = 0, string firstName = "")
     {
         SlbTeacher = slbTeacher;
         Nr = nr;
-        this.FirstName = firstName;
+        FirstName = firstName;
 
         // MOET FirstName zetten wegens 'required' -->
         Student student = new Student() { FirstName = firstName };
@@ -52,7 +49,22 @@ public class Student : IStudent
     // Een full-property met backing field -->
     public bool IsEnlisted { get => _isEnlisted; set => _isEnlisted = value; }
 
+    // Een calculated full-property met implementatie -->
+    public int Age
+    {
+        get
+        {
+            var today = DateOnly.FromDateTime(DateTime.Now);
+            var age = today.Year - DateOfBirth.Year;
+            if (age < 0)
+            {
+                throw new InvalidOperationException("Invalid age");
+            }
+            return age;
+        }
+    }
+
     // Expression-bodied method -->
     public int Test() => 1;
-    
+
 }

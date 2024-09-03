@@ -1,4 +1,5 @@
 ﻿// Onnodige imports. Kan geen kwaad maar geeft ruis -->
+using Entities.Domain.Students;
 using System;
 using System.Collections.Generic;
 using System.Linq;

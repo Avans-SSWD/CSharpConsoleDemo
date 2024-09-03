@@ -1,4 +1,4 @@
-﻿namespace CSharpConsoleDemo;
+﻿namespace Entities.Domain.Interfaces;
 
 public interface IStudent
 {
