@@ -5,6 +5,12 @@ public class LinqDemo
 {
     public void Go(IEnumerable<Student> students)
     {
+
+        Func<int, int> squareInt = x => x * x;
+
+        var squared = squareInt(5);
+        Console.WriteLine($"5 squared is {squared}");
+
         // query syntax -->
         var studentsWithJ_QS =
             from student in students
@@ -25,6 +31,10 @@ public class LinqDemo
             new Student { Nr = 5, FirstName = "Rincewind", LastName = "The Wizard", },
             new Student { Nr = 6, FirstName = "Bloody Stupid", LastName = "Johnson", },
         };
+
+        // Anoniem type (hoover erover voor intellisense) -->
+        var iets = new { FirstValue = "een waarde", SecondValue = "een tweede waarde", AnInteger = 42 };
+        Console.WriteLine($"{iets.FirstValue}");
 
         // transformaties mbv select -->
         // fluent syntax, method chaining -->
